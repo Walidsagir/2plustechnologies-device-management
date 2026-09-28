@@ -30,6 +30,7 @@
 }
 
 body {
+  margin: 0;
   background: var(--bg);
   color: var(--text);
   font-family: Inter, "Helvetica Neue", Arial, sans-serif;
@@ -346,16 +347,27 @@ body::after {
 
 @media (min-width: 768px) {
   .analytics-cards-container {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 14px;
     justify-content: center;
-    max-width: 80%;
+    max-width: 100%;
     margin: auto;
   }
 
-  .card {
-    margin-bottom: 0;
-    min-width: 180px;
+  .analytics-cards-container .analytics-card {
+    min-width: 0;
+    max-width: none;
+    max-height: none;
+  }
+
+  .analytics-card-icon-title {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .analytics-card-title {
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 }
 
@@ -364,10 +376,33 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+
   margin: auto;
-  min-height: 100px;
-  max-width: 80%;
+  margin-bottom: 30px;
+  max-width: 100%;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-role {
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--teal-tint);
+  color: var(--teal-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.main-content {
+  box-sizing: border-box;
+  width: 90%;
+  max-width: 1280px;
+  margin-inline: auto;
 }
 
 .menu-toggle {
@@ -394,6 +429,13 @@ body::after {
 
 .menu.menu-open {
   display: grid;
+}
+
+.menu-title {
+  margin: 4px 10px 8px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .menu-item {
@@ -429,14 +471,17 @@ body::after {
 }
 
 @media (max-width: 600px) {
-  .header-section {
-    max-width: calc(100% - 32px);
+  .main-content {
+    width: calc(100% - 32px);
   }
 }
 
 @media (min-width: 768px) {
   .app-shell {
-    padding-left: 240px;
+    box-sizing: border-box;
+    width: 80vw;
+    margin-left: 20vw;
+    padding: 0 24px;
   }
 
   .menu-toggle {
@@ -453,7 +498,7 @@ body::after {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    width: 240px;
+    width: 20vw;
     max-height: 100dvh;
     padding: 24px 12px;
     border: 0;

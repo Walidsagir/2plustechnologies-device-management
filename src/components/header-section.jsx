@@ -3,6 +3,8 @@ import Menu from "./menu";
 
 function HeaderSection({ name, metadata, role = "aggregators" }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const roleTitle = role.endsWith("s") ? role.slice(0, -1) : role;
+  const formattedRole = roleTitle.charAt(0).toUpperCase() + roleTitle.slice(1);
 
   return (
     <header className="header-section">
@@ -20,7 +22,10 @@ function HeaderSection({ name, metadata, role = "aggregators" }) {
       </button>
       <div className="header-info">
         <h1 className="header-title page-title">{name}</h1>
-        <p className="header-subtitle page-subtitle">{metadata}</p>
+        <div className="header-meta">
+          <p className="header-subtitle page-subtitle">{metadata}</p>
+          <span className="header-role">{formattedRole}</span>
+        </div>
       </div>
       {/*Notification icon*/}
       <span className="header-icon icon-btn">
@@ -29,6 +34,7 @@ function HeaderSection({ name, metadata, role = "aggregators" }) {
       <Menu
         id="main-menu"
         role={role}
+        roleTitle={formattedRole}
         className={isMenuOpen ? "menu menu-open" : "menu"}
         onNavigate={() => setIsMenuOpen(false)}
       />

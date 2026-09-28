@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-function Menu({ id, role, onNavigate, className }) {
+function Menu({ id, role, roleTitle, onNavigate, className }) {
   const NAV_ITEMS = [
     {
       name: "Home",
@@ -45,6 +45,7 @@ function Menu({ id, role, onNavigate, className }) {
 
   return (
     <aside className={className} id={id} aria-label="Main navigation">
+      <h2 className="menu-title">{roleTitle}</h2>
       {allowedItems.map((item) => (
         <NavLink
           key={item.href}
