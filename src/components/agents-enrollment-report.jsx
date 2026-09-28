@@ -11,7 +11,6 @@ function AgentsEnrollmentReportCard({ name, agent, totalEnrolledAgents }) {
   };
   return (
     <div className="agents-enrollment-report">
-      <h2>Agents Enrollment Report</h2>
       <p>{initials ? initials : "UK"}</p>
       <div className="agents-enrollment-report-card-name">
         <span className="agent-enrollment-card-label">Name</span>
