@@ -360,6 +360,7 @@ body::after {
 }
 
 .header-section {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -367,4 +368,97 @@ body::after {
   margin: auto;
   min-height: 100px;
   max-width: 80%;
+}
+
+.menu-toggle {
+  cursor: pointer;
+  flex: 0 0 38px;
+}
+
+.menu {
+  box-sizing: border-box;
+  position: absolute;
+  top: calc(100% - 8px);
+  left: 0;
+  z-index: 5;
+  display: none;
+  width: min(260px, calc(100vw - 32px));
+  max-height: calc(100dvh - 120px);
+  padding: 6px;
+  overflow-y: auto;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-md);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.menu.menu-open {
+  display: grid;
+}
+
+.menu-item {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.menu-item:hover,
+.menu-item:focus-visible,
+.menu-item.active {
+  background: var(--teal-light);
+  color: var(--teal-text);
+}
+
+.menu-item-danger {
+  margin-top: auto;
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.menu-item-danger.active {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.menu-item-danger:hover,
+.menu-item-danger:focus-visible {
+  background: var(--danger);
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .header-section {
+    max-width: calc(100% - 32px);
+  }
+}
+
+@media (min-width: 768px) {
+  .app-shell {
+    padding-left: 240px;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .menu,
+  .menu.menu-open {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 240px;
+    max-height: 100dvh;
+    padding: 24px 12px;
+    border: 0;
+    border-right: 1px solid var(--divider);
+    border-radius: 0;
+    box-shadow: none;
+  }
 }

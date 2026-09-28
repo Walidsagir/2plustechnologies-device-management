@@ -1,7 +1,5 @@
 import "./App.css";
-import AggrigatorDashboard from "./pages/aggregator-dashboard";
 import HeaderSection from "./components/header-section";
-import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const Home = () => <div>Home Page</div>;
@@ -15,12 +13,14 @@ const Settings = () => <div>Account Settings</div>;
 
 function App() {
   return (
-    <main className="app-shell">
-      <HeaderSection name="Walid Sagir" metadata="Welcome back!" />
-      {/* The AggrigatorDashboard component is rendered here   <AggrigatorDashboard />*/}
-      {/* The Router component wraps the entire application to enable routing */}
-
-      <Router>
+    <Router>
+      <main className="app-shell">
+        <HeaderSection
+          name="Walid Sagir"
+          metadata="Welcome back!"
+          role="aggregators"
+        />
+        {/* The AggrigatorDashboard component is rendered here   <AggrigatorDashboard />*/}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/agents" element={<Agents />} />
@@ -31,8 +31,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
-      </Router>
-    </main>
+      </main>
+    </Router>
   );
 }
 

@@ -1,7 +1,6 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 
-function Menu({ role }) {
+function Menu({ id, role, onNavigate, className }) {
   const NAV_ITEMS = [
     {
       name: "Home",
@@ -45,9 +44,16 @@ function Menu({ role }) {
   const allowedItems = NAV_ITEMS.filter((item) => item.role.includes(role));
 
   return (
-    <aside className="menu">
-      {allowedItems.map((item, index) => (
-        <NavLink key={index} to={item.href} className="menu-item">
+    <aside className={className} id={id} aria-label="Main navigation">
+      {allowedItems.map((item) => (
+        <NavLink
+          key={item.href}
+          to={item.href}
+          className={
+            item.name === "Logout" ? "menu-item menu-item-danger" : "menu-item"
+          }
+          onClick={onNavigate}
+        >
           {item.name}
         </NavLink>
       ))}

@@ -1,14 +1,23 @@
 import React from "react";
 import Menu from "./menu";
 
-function HeaderSection({ name, metadata }) {
+function HeaderSection({ name, metadata, role = "aggregators" }) {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
   return (
     <header className="header-section">
-      <span className="header-icon icon-btn">
-        <button className="icon-btn" onClick={() => handleMenuToggle()}>
-          <i className="fas fa-bars"></i>
-        </button>
-      </span>
+      <button
+        className="header-icon icon-btn menu-toggle"
+        type="button"
+        aria-label={
+          isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+        }
+        aria-expanded={isMenuOpen}
+        aria-controls="main-menu"
+        onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
+      >
+        <i className="fas fa-bars" aria-hidden="true"></i>
+      </button>
       <div className="header-info">
         <h1 className="header-title page-title">{name}</h1>
         <p className="header-subtitle page-subtitle">{metadata}</p>
@@ -17,6 +26,12 @@ function HeaderSection({ name, metadata }) {
       <span className="header-icon icon-btn">
         <i className="fas fa-bell"></i>
       </span>
+      <Menu
+        id="main-menu"
+        role={role}
+        className={isMenuOpen ? "menu menu-open" : "menu"}
+        onNavigate={() => setIsMenuOpen(false)}
+      />
     </header>
   );
 }
