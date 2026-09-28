@@ -1,0 +1,237 @@
+:root {
+  /* Base */
+  --bg: #f6fcfb;
+  --teal: #2dd4bf; /* borders, buttons, progress, charts */
+  --teal-text: #0f766e; /* links, teal text, icons */
+  --teal-deep: #04342c; /* text or icons on teal fills */
+  --teal-light: #d5f3ec; /* progress track */
+  --teal-tint: rgba(45, 212, 191, 0.22); /* icon badge background */
+  --text: #10201e;
+  --text-2: rgba(16, 32, 30, 0.6);
+  --divider: rgba(15, 118, 110, 0.16);
+
+  /* Status */
+  --success: #3b6d11;
+  --success-bg: #eaf3de;
+  --warning: #854f0b;
+  --warning-bg: #faeeda;
+  --danger: #a32d2d;
+  --danger-bg: #fcebeb;
+  --info: #0c447c;
+  --info-bg: #e6f1fb;
+  --info-line: #378add;
+  --amber-line: #ef9f27; /* sparkline for warning */
+
+  /* Shape */
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 8px 32px rgba(15, 118, 110, 0.12);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "tnum";
+  position: relative;
+  overflow-x: hidden;
+}
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  background: var(--teal);
+  z-index: 0;
+  pointer-events: none;
+}
+body::before {
+  top: -60px;
+  right: -70px;
+  width: 240px;
+  height: 240px;
+  opacity: 0.35;
+}
+body::after {
+  bottom: 80px;
+  left: -90px;
+  width: 200px;
+  height: 200px;
+  opacity: 0.22;
+}
+
+/* Glass card */
+.card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--teal);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.stat-grid .card {
+  padding: 14px;
+  margin: 0;
+}
+
+/* Type */
+.title {
+  font-size: 17px;
+  font-weight: 600;
+}
+.label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.value {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.h {
+  font-size: 14px;
+  font-weight: 600;
+}
+.sub {
+  font-size: 12px;
+  color: var(--text-2);
+}
+.link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal-text);
+}
+.id {
+  font:
+    11px "JetBrains Mono",
+    monospace;
+  color: var(--teal-text);
+}
+
+/* Icon badge (color per meaning) */
+.icon-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-badge.teal {
+  background: var(--teal-tint);
+  color: var(--teal-text);
+}
+.icon-badge.blue {
+  background: var(--info-bg);
+  color: var(--info);
+}
+.icon-badge.amber {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+.icon-badge.red {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+.icon-badge.green {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+/* List rows */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--divider);
+}
+.row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Buttons */
+.btn {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal-text);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--teal);
+  border-radius: var(--radius-sm);
+  padding: 5px 11px;
+}
+.btn-primary {
+  background: var(--teal);
+  color: var(--teal-deep);
+  border: 0;
+}
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--teal);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--teal-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Status chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.chip::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.chip.success {
+  color: var(--success);
+  background: var(--success-bg);
+}
+.chip.warning {
+  color: var(--warning);
+  background: var(--warning-bg);
+}
+.chip.danger {
+  color: var(--danger);
+  background: var(--danger-bg);
+}
+
+/* Progress */
+.progress {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--teal-light);
+  overflow: hidden;
+}
+.progress > span {
+  display: block;
+  height: 100%;
+  background: var(--teal);
+  border-radius: 3px;
+}
+.progress.thin {
+  height: 3px;
+}
