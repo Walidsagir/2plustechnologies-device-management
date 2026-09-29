@@ -79,7 +79,6 @@ body::after {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-  max-height: 10px;
 }
 .stat-grid .card {
   padding: 14px;
@@ -405,6 +404,12 @@ body::after {
   margin-inline: auto;
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main-content {
+    width: 100%;
+  }
+}
+
 .menu-toggle {
   cursor: pointer;
   flex: 0 0 38px;
@@ -508,14 +513,221 @@ body::after {
   }
 }
 
+.agents-enrollment-report-cards-container {
+  display: grid;
+  gap: 12px;
+}
+
+.aggregator-target-box {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0 28px;
+  padding: 20px 24px;
+  border: 1px solid var(--teal);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: var(--shadow);
+  color: var(--text);
+}
+
+.target-info,
+.target-values,
+.target-amounts,
+.target-footer {
+  display: flex;
+  align-items: center;
+}
+
+.target-info,
+.target-values,
+.target-footer {
+  justify-content: space-between;
+}
+
+.target-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.target-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--success-bg);
+  color: var(--success);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.target-status::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  content: "";
+}
+
+.target-amounts {
+  align-items: baseline;
+  gap: 8px;
+}
+
+.achieved-value {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.target-value {
+  color: var(--text-2);
+  font-size: 20px;
+}
+
+.target-percentage {
+  color: var(--teal-text);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.target-progress {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--teal-light);
+}
+
+.target-progress > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--teal);
+  transition: width 0.45s ease;
+}
+
+.target-footer {
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  color: var(--text-2);
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .aggregator-target-box {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .target-title {
+    font-size: 16px;
+  }
+
+  .achieved-value {
+    font-size: 28px;
+  }
+
+  .target-value {
+    font-size: 16px;
+  }
+
+  .target-percentage {
+    font-size: 20px;
+  }
+}
+
+.extra-enrollment-reports {
+  display: grid;
+  grid-template-rows: 0fr;
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    grid-template-rows 0.35s ease,
+    opacity 0.25s ease,
+    transform 0.35s ease;
+}
+
+.extra-enrollment-reports.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.extra-enrollment-reports-inner {
+  display: grid;
+  gap: 12px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.see-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 9px 16px;
+  border: 1px solid var(--teal);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--teal-text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.1s;
+}
+
+.see-more-btn i {
+  transition: transform 0.25s ease;
+}
+
+.see-more-btn[aria-expanded="true"] i {
+  transform: rotate(180deg);
+}
+
+.see-more-btn:hover,
+.see-more-btn:focus-visible {
+  background: var(--teal);
+  color: var(--teal-deep);
+}
+
+.see-more-btn:focus-visible {
+  outline: 2px solid var(--teal-text);
+  outline-offset: 2px;
+}
+
+.see-more-btn:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .extra-enrollment-reports,
+  .see-more-btn i {
+    transition: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .agents-enrollment-report-cards-container {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+}
+
 .agents-enrollment-report {
   display: grid;
-  grid-template-columns: 48px 1fr;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
   grid-template-areas:
-    "title  title"
-    "avatar name"
-    "avatar total"
-    "date   button";
+    "avatar name   button"
+    "avatar total  button"
+    "date   date   date";
   column-gap: 14px;
   row-gap: 10px;
   align-items: center;
@@ -590,7 +802,8 @@ body::after {
 
 .agents-enrollment-report button {
   grid-area: button;
-  justify-self: end;
+  justify-self: center;
+  align-self: center;
   padding: 8px 20px;
   font-size: 13px;
   font-weight: 600;

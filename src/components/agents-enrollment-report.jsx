@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function AgentsEnrollmentReportCard({ name, agent, totalEnrolledAgents }) {
+function AgentsEnrollmentReportCard({ name, agent, totalEnrollments }) {
   const initials = name ? name.charAt(0) : null;
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function AgentsEnrollmentReportCard({ name, agent, totalEnrolledAgents }) {
       </div>
       <div className="agents-enrollment-report-card-total-enrollments">
         <span className="agent-enrollment-card-label">Total Enrollments</span>
-        {totalEnrolledAgents}
+        {totalEnrollments}
       </div>
 
       <p className="agents-enrollment-report-card-">

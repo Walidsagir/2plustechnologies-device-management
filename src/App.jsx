@@ -1,10 +1,10 @@
 import "./App.css";
 import HeaderSection from "./components/header-section";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import AggrigatorDashboard from "./pages/aggregator-dashboard";
+import AggregatorDashboard from "./pages/aggregator-dashboard";
 import AgentsEnrollmentReportCard from "./components/agents-enrollment-report";
 
-const Home = () => <div>Home Page</div>;
+const Home = () => <div>Home Page </div>;
 const Agents = () => <div>Agents Management</div>;
 const Technicians = () => <div>Technicians Portal</div>;
 const Aggregators = () => <div>Aggregators Panel</div>;
@@ -19,12 +19,7 @@ function App() {
     <Router>
       <main className="app-shell">
         <div className="main-content">
-          <AgentsEnrollmentReportCard
-            name={"walid sagir"}
-            agent={"walid sagir"}
-            totalEnrolledAgents={10}
-          />
-          {/* <HeaderSection
+          <HeaderSection
             name="Walid Sagir"
             metadata="Welcome back!"
             role="aggregators"
@@ -34,7 +29,7 @@ function App() {
               path="/"
               element={
                 <>
-                  <AggrigatorDashboard />
+                  <AggregatorDashboard />
                   <Home />
                 </>
               }
@@ -47,7 +42,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/Agent" element={<Agent />} />
             <Route path="/settings" element={<Settings />} />
-          </Routes>*/}
+          </Routes>
         </div>
       </main>
     </Router>

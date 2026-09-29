@@ -3,7 +3,13 @@ from enum import Enum
 from typing import Optional
 
 from sqlalchemy import ForeignKey, create_engine, func
-from sqlalchemy.orm import Mapped, mapped_column, declarative_base, relationship
+from sqlalchemy.orm import (
+    Mapped,
+    mapped_column,
+    declarative_base,
+    relationship,
+    Session,
+)
 
 Base = declarative_base()
 engine = create_engine("sqlite:///database.db", echo=True)
@@ -28,6 +34,12 @@ class TicketStatus(str, Enum):
     IN_PROGRESS = "IN_PROGRESS"
     RESOLVED = "RESOLVED"
     CLOSED = "CLOSED"
+
+
+class TicketCategory(str, Enum):
+    HARDWARE = "HARDWARE"
+    SOFTWARE = "SOFTWARE"
+    OTHER = "OTHER"
 
 
 class TicketPriority(str, Enum):
@@ -116,11 +128,21 @@ class Agent(Base):
 
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), unique=True)
 
+    first_name: Mapped[str]
+
+    last_name: Mapped[str]
+
     aggregator_id: Mapped[int] = mapped_column(ForeignKey("aggregators.id"))
+
+    device_id: Mapped[int] = mapped_column(ForeignKey("devices.id"))
 
     account_number: Mapped[str]
 
     account_name: Mapped[str]
+
+    created_by: Mapped[int] = mapped_column(ForeignKey("users.id"))
+
+    created_at: Mapped[datetime] = mapped_column(server_default=func.now())
 
     enrollments: Mapped[list["Enrollment"]] = relationship(backpopulates="agent")
 
@@ -144,13 +166,17 @@ class Ticket(Base):
 
     aggregator_id: Mapped[int] = mapped_column(ForeignKey("aggregators.id"))
 
+    admin_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+
     technician_id: Mapped[Optional[int]] = mapped_column(ForeignKey("technicians.id"))
 
-    status: Mapped[TicketStatus]
+    status: Mapped[TicketStatus] = mapped_column(default=TicketStatus.open)
 
-    priority: Mapped[TicketPriority]
+    priority: Mapped[TicketPriority] = mapped_column(default=TicketPriority.LOW)
 
-    created_at: Mapped[datetime]
+    category: Mapped[TicketCategory] = mapped_column(default=TicketCategory.HARDWARE)
+
+    created_at: Mapped[datetime] = mapped_column(server_default=func.now())
 
     resolved_at: Mapped[Optional[datetime]]
 
@@ -172,7 +198,9 @@ class Device(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
-    imei: Mapped[str] = mapped_column(unique=True)
+    imei1: Mapped[str] = mapped_column(unique=True)
+
+    imei2: Mapped[str] = mapped_column(unique=True)
 
     model: Mapped[str]
 
@@ -180,7 +208,7 @@ class Device(Base):
 
     current_agent_id: Mapped[Optional[int]] = mapped_column(ForeignKey("agents.id"))
 
-    status: Mapped[DeviceStatus]
+    status: Mapped[DeviceStatus] = mapped_column(default=DeviceStatus.ACTIVE)
 
     total_enrollments: Mapped[int] = mapped_column(default=0)
 
@@ -206,11 +234,13 @@ class Enrollment(Base):
 
     aggregator_id: Mapped[int] = mapped_column(ForeignKey("aggregators.id"))
 
-    enrollment_count: Mapped[int]
+    enrollment_count: Mapped[int] = mapped_column(default=0)
 
-    enrollment_date: Mapped[date]
+    enrollment_date: Mapped[date] = mapped_column(default=date.today())
 
-    notes: Mapped[Optional[str]]
+    notes: Mapped[Optional[str]] = mapped_column(
+        nullable=True, default="No notes provided."
+    )
 
 
 class Technician(Base):
@@ -295,3 +325,12 @@ class Target(Base):
     aggregator: Mapped["Aggregator"] = relationship(backpopulates="targets")
 
     device: Mapped[Optional["Device"]] = relationship(backpopulates="targets")
+
+
+def init_db():
+    Base.metadata.create_all(engine)
+
+
+def get_db():
+    with Session(engine) as db:
+        yield db
