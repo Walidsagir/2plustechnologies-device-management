@@ -108,7 +108,11 @@ async def assign_device(
         .filter(Device.imei1 == device_assignment_data.device_imie)
         .first()
     )
-    agent = db.query(Agent).filter(Agent.id == device_assignment_data.agent_id).first()
+    agent = (
+        db.query(Agent)
+        .filter(Agent.phone_number == device_assignment_data.agent_phone_number)
+        .first()
+    )
     assignment = DeviceAssignment(
         **device_assignment_data.model_dump(),
         device_id=device.id,

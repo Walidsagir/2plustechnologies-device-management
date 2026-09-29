@@ -132,6 +132,8 @@ class Agent(Base):
 
     last_name: Mapped[str]
 
+    phone_number: Mapped[str]
+
     aggregator_id: Mapped[int] = mapped_column(ForeignKey("aggregators.id"))
 
     device_id: Mapped[int] = mapped_column(ForeignKey("devices.id"))
