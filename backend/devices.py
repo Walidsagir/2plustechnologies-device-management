@@ -28,7 +28,7 @@ class DeviceInfo(BaseModel):
 
 
 class DeviceAssignmentInfo(BaseModel):
-    device_imie1: str
+    device_imie: str
     agent_phone_number: str
     assigned_by: int
     assigned_at: datetime
@@ -104,7 +104,9 @@ async def assign_device(
 ):
     aggregator_id = request.session.get("user_id")
     device = (
-        db.query(Device).filter(Device.id == device_assignment_data.device_id).first()
+        db.query(Device)
+        .filter(Device.imei1 == device_assignment_data.device_imie)
+        .first()
     )
     agent = db.query(Agent).filter(Agent.id == device_assignment_data.agent_id).first()
     assignment = DeviceAssignment(
