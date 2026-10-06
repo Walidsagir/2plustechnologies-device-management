@@ -1400,6 +1400,44 @@ body::after {
   }
 }
 
+@media (min-width: 1200px) {
+  .agent-aggregator-view-card-description,
+  .agent-aggregator-view-card-enrollments {
+    min-height: 340px;
+    padding: 18px;
+  }
+
+  .agent-aggregator-view-card-description-row {
+    min-height: 34px;
+  }
+
+  .agent-aggregator-view-card-enrollments-stats {
+    min-height: 156px;
+  }
+
+  .agent-aggregator-view-card-device-section-content {
+    min-height: 100px;
+    padding: 16px 18px;
+  }
+
+  .agent-aggregator-view-card-device-icon {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  .agent-aggregator-view-card-device-identity-text,
+  .agent-aggregator-view-card-device-detail {
+    font-size: 13px;
+  }
+
+  .agent-aggregator-view-card-device-identity-text > span,
+  .agent-aggregator-view-card-device-detail-label {
+    font-size: 12px;
+  }
+}
+
 @media (max-width: 420px) {
   .agent-aggregator-description-card {
     padding: 14px;
