@@ -238,7 +238,7 @@ class Enrollment(Base):
 
     enrollment_count: Mapped[int] = mapped_column(default=0)
 
-    enrollment_date: Mapped[date] = mapped_column(default=date.today())
+    enrollment_date: Mapped[date] = mapped_column(server_default=func.now())
 
     notes: Mapped[Optional[str]] = mapped_column(
         nullable=True, default="No notes provided."

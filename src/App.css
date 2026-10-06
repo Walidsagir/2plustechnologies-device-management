@@ -375,7 +375,6 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   margin: auto;
   margin-bottom: 30px;
   max-width: 100%;
@@ -399,9 +398,13 @@ body::after {
 
 .main-content {
   box-sizing: border-box;
-  width: 90%;
+  width: 65%;
   max-width: 1280px;
   margin-inline: auto;
+}
+
+.agent-aggregator-view-main-content {
+  width: 100%;
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -477,6 +480,10 @@ body::after {
 
 @media (max-width: 600px) {
   .main-content {
+    width: calc(100% - 32px);
+  }
+
+  .main-content.agent-aggregator-view-main-content {
     width: calc(100% - 32px);
   }
 }
@@ -726,8 +733,7 @@ body::after {
   grid-template-columns: 48px minmax(0, 1fr) auto;
   grid-template-areas:
     "avatar name   button"
-    "avatar total  button"
-    "date   date   date";
+    "avatar date   button";
   column-gap: 14px;
   row-gap: 10px;
   align-items: center;
@@ -779,25 +785,34 @@ body::after {
 }
 .agents-enrollment-report-card-name {
   grid-area: name;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  column-gap: 12px;
+}
+.agent-enrollment-report-card-details {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
 }
 .agents-enrollment-report-card-total-enrollments {
-  grid-area: total;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   font-size: 20px;
   color: var(--teal-text);
+}
+.agent-enrollment-report-card-date {
+  grid-area: date;
+  font-size: 13px;
+  color: var(--text);
 }
 
 .agent-enrollment-card-label {
   font-size: 12px;
   font-weight: 400;
   color: var(--text-2);
-}
-
-.agents-enrollment-report-card- {
-  grid-area: date;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  font-size: 13px;
 }
 
 .agents-enrollment-report button {
@@ -821,4 +836,972 @@ body::after {
 }
 .agents-enrollment-report button:active {
   transform: scale(0.97);
+}
+
+.agent-aggregator-description-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 2px solid rgba(45, 212, 191, 0.7);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text);
+}
+
+.agent-aggregator-description-card-first-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.agent-aggregator-description-card-initials {
+  display: flex;
+  flex: 0 0 70px;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border: 2px solid var(--teal);
+  border-radius: 50%;
+  background: var(--teal-light);
+  color: var(--teal-text);
+  font-size: 24px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.agent-aggregator-description-card-details {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.agent-aggregator-description-card-heading,
+.agent-aggregator-description-card-contact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.agent-aggregator-description-card-heading {
+  flex-wrap: wrap;
+}
+
+.agent-aggregator-description-card-name {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.agent-aggregator-description-card-status {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--teal-light);
+  color: var(--teal-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.agent-aggregator-description-card-contact {
+  flex-wrap: wrap;
+  color: var(--text-2);
+  font-size: 17px;
+}
+
+.agent-aggregator-description-card-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.agent-aggregator-description-card-phone i {
+  font-size: 16px;
+}
+
+.agent-aggregator-description-card-separator {
+  color: var(--divider);
+}
+
+.agent-aggregator-description-card-second-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--divider);
+}
+
+.agent-aggregator-description-card-enrollments {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  color: var(--text-2);
+  font-size: 16px;
+}
+
+.agent-aggregator-description-card-enrollments-value {
+  color: var(--teal-text);
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.agent-aggregator-description-card-enrollments-button {
+  min-width: 104px;
+  min-height: 48px;
+  padding: 10px 24px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--teal);
+  color: var(--teal-deep);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.agent-aggregator-description-card-enrollments-button:hover {
+  background: #26bfab;
+}
+
+.agent-aggregator-view-page {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: stretch;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #e3f4f0, #f0f8f6);
+}
+
+.agent-aggregator-view-card-description {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--teal);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.76);
+  color: var(--text);
+}
+
+.agent-aggregator-view-card-description-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.agent-aggregator-view-card-description-initials {
+  display: grid;
+  flex: 0 0 54px;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border: 1px solid var(--teal);
+  border-radius: 50%;
+  background: var(--teal-light);
+  color: var(--teal-text);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.agent-aggregator-view-card-description-header-text {
+  min-width: 0;
+}
+
+.agent-aggregator-view-card-description-name {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.agent-aggregator-view-card-description-status {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--teal-light);
+  color: var(--teal-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.agent-aggregator-view-card-description-content {
+  padding-top: 7px;
+}
+
+.agent-aggregator-view-card-description-row {
+  display: flex;
+  min-height: 31px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.agent-aggregator-view-card-description-label {
+  color: var(--text-2);
+}
+
+.agent-aggregator-view-card-description-value {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+  color: var(--text);
+  font-weight: 500;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.agent-aggregator-view-card-description-value i {
+  color: var(--teal-text);
+  font-size: 13px;
+}
+
+.agent-aggregator-view-card-enrollments {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--teal);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.76);
+  color: var(--text);
+}
+
+.agent-aggregator-view-card-enrollments-header {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.agent-aggregator-view-card-enrollments-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.agent-aggregator-view-card-enrollments-button {
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1px solid var(--teal);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--teal-text);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.agent-aggregator-view-card-enrollments-button.is-active {
+  background: var(--teal);
+  color: var(--teal-deep);
+}
+
+.agent-aggregator-view-card-enrollments-button:focus-visible,
+.agent-aggregator-view-card-enrollments-custom-date-range input:focus-visible {
+  outline: 2px solid var(--teal-text);
+  outline-offset: 2px;
+}
+
+.agent-aggregator-view-card-enrollments-custom-date-range {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.agent-aggregator-view-card-enrollments-custom-date-range label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--text-2);
+  font-size: 11px;
+}
+
+.agent-aggregator-view-card-enrollments-custom-date-range input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 38px;
+  padding: 6px 8px;
+  border: 1px solid var(--teal);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+}
+
+.agent-aggregator-view-card-enrollments-stats {
+  display: flex;
+  min-height: 136px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--teal);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  text-align: center;
+}
+
+.agent-aggregator-view-card-enrollments-stats-label,
+.agent-aggregator-view-card-enrollments-stats-meta-date-range {
+  color: var(--text-2);
+  font-size: 14px;
+}
+
+.agent-aggregator-view-card-enrollments-stats-value {
+  color: var(--teal-text);
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.agent-aggregator-view-card-last-sync-enrollment {
+  box-sizing: border-box;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--teal);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.agent-aggregator-view-card-last-sync-enrollment-icon {
+  display: grid;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--teal-light);
+  color: var(--teal-text);
+  font-size: 18px;
+}
+
+.agent-aggregator-view-card-last-sync-enrollment-content {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.agent-aggregator-view-card-last-sync-enrollment-title,
+.agent-aggregator-view-card-last-sync-enrollment-date {
+  color: var(--text-2);
+  font-size: 12px;
+}
+
+.agent-aggregator-view-card-last-sync-enrollment-time {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.agent-aggregator-view-card-last-sync-enrollment-date {
+  text-align: right;
+}
+
+.agent-aggregator-view-card-device-section {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0;
+  color: var(--text);
+}
+
+.agent-aggregator-view-card-device-section-header {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.agent-aggregator-view-card-device-section-content {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px 12px;
+  padding: 12px;
+  border: 1px solid var(--teal);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.agent-aggregator-view-card-device-identity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+}
+
+.agent-aggregator-view-card-device-icon {
+  display: grid;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 11px;
+  background: var(--teal-light);
+  color: var(--teal-text);
+  font-size: 16px;
+}
+
+.agent-aggregator-view-card-device-identity-text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+}
+
+.agent-aggregator-view-card-device-identity-text strong {
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+
+.agent-aggregator-view-card-device-identity-text > span {
+  color: var(--text-2);
+  font-size: 12px;
+}
+
+.agent-aggregator-view-card-device-status {
+  display: flex;
+  justify-self: end;
+}
+
+.agent-aggregator-view-card-device-detail {
+  display: flex;
+  grid-column: 1 / -1;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 7px;
+  border-top: 1px solid var(--divider);
+  font-size: 12px;
+}
+
+.agent-aggregator-view-card-device-detail-label {
+  color: var(--text-2);
+}
+
+.agent-aggregator-view-card-device-detail-value {
+  color: var(--text);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.agent-aggregator-view-card-device-status-value {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--teal-light);
+  color: var(--teal-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.agent-aggregator-view-card-device-view-button {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .agent-aggregator-view-page {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .agent-aggregator-view-card-description,
+  .agent-aggregator-view-card-enrollments {
+    height: 100%;
+  }
+
+  .agent-aggregator-view-card-enrollments-stats {
+    flex: 1;
+  }
+
+  .agent-aggregator-view-card-device-section {
+    grid-column: 1 / -1;
+  }
+
+  .agent-aggregator-view-card-device-section-header {
+    font-size: 16px;
+  }
+
+  .agent-aggregator-view-card-device-section-content {
+    grid-template-columns:
+      minmax(0, 1.3fr)
+      minmax(0, 0.65fr)
+      minmax(0, 1fr)
+      minmax(0, 1fr)
+      28px;
+    gap: 12px;
+    min-height: 76px;
+    padding: 12px;
+  }
+
+  .agent-aggregator-view-card-device-identity {
+    padding-right: 12px;
+  }
+
+  .agent-aggregator-view-card-device-status,
+  .agent-aggregator-view-card-device-detail {
+    display: flex;
+    grid-column: auto;
+    min-height: 40px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 3px;
+    padding: 0 0 0 12px;
+    border-top: 0;
+    border-left: 1px solid var(--divider);
+  }
+
+  .agent-aggregator-view-card-device-status {
+    justify-self: auto;
+  }
+
+  .agent-aggregator-view-card-device-assigned-since {
+    display: none;
+  }
+
+  .agent-aggregator-view-card-device-view-button {
+    display: grid;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    height: 36px;
+    place-items: center;
+    border: 0;
+    background: transparent;
+    color: var(--teal-text);
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .agent-aggregator-view-card-device-view-button:focus-visible {
+    outline: 2px solid var(--teal-text);
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 420px) {
+  .agent-aggregator-description-card {
+    padding: 14px;
+  }
+
+  .agent-aggregator-description-card-first-row {
+    gap: 12px;
+  }
+
+  .agent-aggregator-description-card-initials {
+    flex-basis: 56px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .agent-aggregator-description-card-name {
+    font-size: 18px;
+  }
+
+  .agent-aggregator-description-card-contact {
+    font-size: 15px;
+  }
+
+  .agent-aggregator-view-card-device-section-content {
+    padding: 10px;
+  }
+
+  .agent-aggregator-view-card-device-icon {
+    flex-basis: 34px;
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.search-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.search-filter-row-search-box,
+.search-filter-row-sort {
+  box-sizing: border-box;
+  height: 64px;
+  border: 2px solid rgba(45, 212, 191, 0.75);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--teal-text);
+}
+
+.search-filter-row-search-box {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 14px;
+  padding: 0 20px;
+}
+
+.search-filter-row-search-box > span {
+  flex: 0 0 auto;
+  font-size: 22px;
+}
+
+.search-filter-row-search-box input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 20px;
+}
+
+.search-filter-row-search-box input::placeholder {
+  color: var(--text-2);
+  opacity: 1;
+}
+
+.search-filter-row-sort {
+  position: relative;
+  display: grid;
+  flex: 0 0 64px;
+  place-items: center;
+  font-size: 22px;
+}
+
+.search-filter-row-sort select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.agents-list-container {
+  margin-top: 18px;
+}
+
+.agents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.agents-list-container-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 4px;
+}
+
+.agents-list-container-title {
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.agents-list-container-sorted {
+  color: var(--text-2);
+  font-size: 18px;
+  text-align: right;
+}
+
+.agents-add-button {
+  display: flex;
+  width: 100%;
+  min-height: 72px;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--teal);
+  color: var(--teal-deep);
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.agents-add-button i {
+  font-size: 20px;
+}
+
+.agents-add-button:focus-visible {
+  outline: 3px solid var(--teal-text);
+  outline-offset: 3px;
+}
+
+.agents-page-summary {
+  margin: 0 0 8px;
+  color: var(--text-2);
+  font-size: 12px;
+}
+
+.agents-controls-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.search-filter-row-sort-label {
+  display: none;
+}
+
+.agents-table-header,
+.agent-aggregator-description-card-desktop-layout {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .agents-add-button {
+    min-height: 58px;
+    gap: 10px;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    font-size: 18px;
+  }
+
+  .agents-add-button i {
+    font-size: 18px;
+  }
+
+  .search-filter-row-search-box,
+  .search-filter-row-sort {
+    height: 52px;
+  }
+
+  .search-filter-row-search-box {
+    gap: 8px;
+    padding-inline: 14px;
+  }
+
+  .search-filter-row-search-box input {
+    font-size: 16px;
+  }
+
+  .search-filter-row-sort {
+    flex-basis: 52px;
+    font-size: 20px;
+  }
+
+  .agents-list-container-header {
+    align-items: center;
+  }
+
+  .agents-list-container-title {
+    font-size: 18px;
+  }
+
+  .agents-list-container-sorted {
+    font-size: 15px;
+  }
+
+  .agents-list {
+    margin-top: 6px;
+  }
+
+  .agent-aggregator-description-card-enrollments-button {
+    min-width: 90px;
+    min-height: 42px;
+    padding: 8px 18px;
+    border-radius: 14px;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 640px) {
+  .agents-page-summary {
+    margin-bottom: 6px;
+    font-size: 11px;
+  }
+
+  .agents-controls-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .agents-add-button {
+    width: auto;
+    min-height: 48px;
+    flex: 0 0 auto;
+    gap: 8px;
+    margin: 0;
+    padding: 0 16px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+
+  .agents-add-button i {
+    font-size: 14px;
+  }
+
+  .agents-controls-row .search-filter-row {
+    min-width: 0;
+    flex: 1;
+    gap: 8px;
+  }
+
+  .agents-controls-row .search-filter-row-search-box,
+  .agents-controls-row .search-filter-row-sort {
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .agents-controls-row .search-filter-row-search-box {
+    gap: 10px;
+    padding-inline: 14px;
+  }
+
+  .agents-controls-row .search-filter-row-search-box input {
+    font-size: 15px;
+  }
+
+  .agents-controls-row .search-filter-row-search-box > span,
+  .agents-controls-row .search-filter-row-sort {
+    font-size: 17px;
+  }
+
+  .agents-controls-row .search-filter-row-sort {
+    display: flex;
+    flex-basis: 88px;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+
+  .search-filter-row-sort-label {
+    display: inline;
+    color: var(--teal-text);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .agents-list-container {
+    margin-top: 12px;
+  }
+
+  .agents-list-container-header {
+    display: none;
+  }
+
+  .agents-table-header,
+  .agent-aggregator-description-card-desktop-layout {
+    grid-template-columns:
+      minmax(115px, 1.5fr)
+      minmax(100px, 1.2fr)
+      minmax(60px, 0.7fr)
+      minmax(82px, 0.9fr)
+      58px;
+    column-gap: 10px;
+  }
+
+  .agents-table-header {
+    display: grid;
+    padding: 6px 12px;
+    color: var(--text-2);
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .agents-list {
+    display: grid;
+    gap: 8px;
+  }
+
+  .agent-aggregator-description-card {
+    padding: 8px 12px;
+    border-width: 1px;
+    border-radius: 12px;
+  }
+
+  .agent-aggregator-description-card-mobile-layout {
+    display: none;
+  }
+
+  .agent-aggregator-description-card-desktop-layout {
+    display: grid;
+    align-items: center;
+    min-width: 0;
+    font-size: 13px;
+  }
+
+  .agent-aggregator-description-card-desktop-agent {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .agent-aggregator-description-card-desktop-initials {
+    display: grid;
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    border: 1px solid var(--teal);
+    border-radius: 50%;
+    background: var(--teal-light);
+    color: var(--teal-text);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .agent-aggregator-description-card-desktop-name,
+  .agent-aggregator-description-card-desktop-phone {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .agent-aggregator-description-card-desktop-name {
+    font-weight: 600;
+  }
+
+  .agent-aggregator-description-card-desktop-status {
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: var(--teal-light);
+    color: var(--teal-text);
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .agent-aggregator-description-card-desktop-enrollments {
+    color: var(--teal-text);
+    font-weight: 600;
+  }
+
+  .agent-aggregator-description-card-desktop-layout
+    .agent-aggregator-description-card-enrollments-button {
+    min-width: 0;
+    min-height: 34px;
+    padding: 5px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+  }
 }

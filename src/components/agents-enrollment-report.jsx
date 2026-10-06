@@ -13,18 +13,19 @@ function AgentsEnrollmentReportCard({ name, agent, totalEnrollments }) {
     <div className="agents-enrollment-report">
       <p>{initials ? initials : "UK"}</p>
       <div className="agents-enrollment-report-card-name">
-        <span className="agent-enrollment-card-label">Name</span>
-        {name}
+        <div className="agent-enrollment-report-card-details">
+          <span className="agent-enrollment-card-label">Name</span>
+          <span>{name}</span>
+        </div>
+        <div className="agent-enrollment-report-card-details agents-enrollment-report-card-total-enrollments">
+          <span className="agent-enrollment-card-label">Total Enrollments</span>
+          <span>{totalEnrollments}</span>
+        </div>
       </div>
-      <div className="agents-enrollment-report-card-total-enrollments">
-        <span className="agent-enrollment-card-label">Total Enrollments</span>
-        {totalEnrollments}
-      </div>
-
-      <p className="agents-enrollment-report-card-">
+      <div className="agent-enrollment-report-card-details agents-enrollment-report-card-date">
         <span className="agent-enrollment-card-label">Date</span>
-        {new Date().toLocaleDateString()}
-      </p>
+        <span>{new Date().toLocaleDateString()}</span>
+      </div>
       <button type="button" onClick={handleViewClick}>
         View
       </button>

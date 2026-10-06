@@ -158,7 +158,7 @@ export default function AggregatorDashboard() {
         <h2 className="aggregator-target-section-title">Current Target</h2>
         <AggregatorTargetBox
           target={1500}
-          achieved={1100}
+          achieved={40}
           dateline="2026-09-31"
         />
       </div>
