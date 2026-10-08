@@ -1,119 +1,166 @@
 import React from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
-function ViewAgentAggregatorPage({ agent }) {
+function ViewAgentAggregatorPage() {
+  const id = useLocation().state;
+  const [agent, setAgent] = useState({});
+
+  const fetchAgent = async () => {
+    const response = await fetch(`/api/agents/${agent.id}`);
+    const data = await response.json();
+    return data;
+  };
+
+  const [agentEnrollments, setAgentEnrollments] = useState([]);
+
+  const simulatedFetch = async (id) => {
+    const AGENT_REPORTS_DATABASE = {
+      agent_id: 99,
+      name: "Chidi Okafor",
+      state: "Enugu State",
+      zone: "South East",
+      last_sync_at: "2026-10-08T06:29:00.000Z",
+      phone: "0803 000 0001",
+      email: "falid.sagir@gmail.com",
+      accountNumber: "1234567890",
+      accountName: "Falid sagir",
+      bank_name: "Bank of America",
+      created_at: "2023-01-01",
+      status: "Active",
+      device: {
+        id: "NIMC-1",
+        model: "Cumbo",
+        status: "Assigned",
+        imei: "356938035643809",
+        lastSync: "Today, 9:12 AM",
+        assignedSince: "12 Mar 2026",
+      },
+      enrollments: [
+        // --- OCTOBER 2026 (Current Month) ---
+        {
+          id: 999,
+          report_title: "Testing Today's Filter",
+          created_at: "2026-10-08",
+          total_enrollments: 111,
+          status: "APPROVED",
+        },
+        {
+          id: 901,
+          report_title: "Nsukka Urban Verification",
+          created_at: "2026-10-05",
+          total_enrollments: 45,
+          status: "APPROVED",
+        },
+        {
+          id: 902,
+          report_title: "Enugu Campus Student Drive",
+          created_at: "2026-10-05",
+          total_enrollments: 112,
+          status: "APPROVED",
+        },
+        {
+          id: 903,
+          report_title: "Ogbete Main Market Rollout",
+          created_at: "2026-10-02",
+          total_enrollments: 89,
+          status: "APPROVED",
+        },
+
+        // --- SEPTEMBER 2026 (1 Month Ago) ---
+        {
+          id: 855,
+          report_title: "Awgu LGA Farmer Onboarding",
+          created_at: "2026-09-28",
+          total_enrollments: 165,
+          status: "APPROVED",
+        },
+        {
+          id: 812,
+          report_title: "Udi Community Biometrics",
+          created_at: "2026-09-15",
+          total_enrollments: 74,
+          status: "APPROVED",
+        },
+
+        // --- AUGUST 2026 (2 Months Ago) ---
+        {
+          id: 790,
+          report_title: "Nkanu West Cooperatives",
+          created_at: "2026-08-11",
+          total_enrollments: 92,
+          status: "APPROVED",
+        },
+
+        // --- MAY 2026 (5 Months Ago) ---
+        {
+          id: 420,
+          report_title: "Garriki Market Pilot Phase",
+          created_at: "2026-05-20",
+          total_enrollments: 230,
+          status: "APPROVED",
+        },
+
+        // --- MARCH 2026 (7 Months Ago) ---
+        {
+          id: 215,
+          report_title: "Ezeagu LGA Rural Assessment",
+          created_at: "2026-03-04",
+          total_enrollments: 115,
+          status: "APPROVED",
+        },
+
+        // --- FEBRUARY 2026 (8 Months Ago) ---
+        {
+          id: 104,
+          report_title: "Nsukka Cluster Baseline Setup",
+          created_at: "2026-02-18",
+          total_enrollments: 198,
+          status: "APPROVED",
+        }, // Add this inside your mock enrollments array to test it:
+        {
+          id: 999,
+          report_title: "Testing Today's Filter",
+          created_at: "2026-10-06", // Matches today's date!
+          total_enrollments: 50,
+          status: "APPROVED",
+        },
+      ],
+    };
+    setAgent(AGENT_REPORTS_DATABASE);
+    setAgentEnrollments(AGENT_REPORTS_DATABASE.enrollments);
+  };
+
+  useEffect(() => {
+    simulatedFetch(id);
+  }, []);
+
   const device = agent.device ?? {};
+
   const labels = [
     { label: "Phone", value: agent.phone },
     { label: "Email", value: agent.email },
-    { label: "Bank", value: agent.bank },
+    { label: "Bank", value: agent.bank_name },
     { label: "Account name", value: agent.accountName },
     { label: "Account number", value: agent.accountNumber },
     { label: "Devices", value: `${agent.devices} assigned` },
-    { label: "Joined", value: agent.joined },
+    { label: "Joined", value: agent.created_at },
   ];
-  const initials = agent.name.charAt(0).toUpperCase();
+
+  const initials = agent.name?.charAt(0).toUpperCase();
+
   const [selectedPeriod, setSelectedPeriod] = React.useState("this-month");
   const [startDate, setStartDate] = React.useState("");
+
   const [endDate, setEndDate] = React.useState(() => {
     const today = new Date();
     return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
   });
+
   const [monthView, setMonthView] = React.useState("this-month");
 
-  const MOCK_AGENT_REPORTS_DATABASE = {
-    agent_id: 99,
-    agent_name: "Chidi Okafor",
-    state: "Enugu State",
-    zone: "South East",
-    last_sync_at: "2026-10-06T06:29:00.000Z",
-
-    enrollments: [
-      // --- OCTOBER 2026 (Current Month) ---
-      {
-        id: 901,
-        report_title: "Nsukka Urban Verification",
-        created_at: "2026-10-05",
-        total_enrollments: 45,
-        status: "APPROVED",
-      },
-      {
-        id: 902,
-        report_title: "Enugu Campus Student Drive",
-        created_at: "2026-10-05",
-        total_enrollments: 112,
-        status: "APPROVED",
-      },
-      {
-        id: 903,
-        report_title: "Ogbete Main Market Rollout",
-        created_at: "2026-10-02",
-        total_enrollments: 89,
-        status: "APPROVED",
-      },
-
-      // --- SEPTEMBER 2026 (1 Month Ago) ---
-      {
-        id: 855,
-        report_title: "Awgu LGA Farmer Onboarding",
-        created_at: "2026-09-28",
-        total_enrollments: 165,
-        status: "APPROVED",
-      },
-      {
-        id: 812,
-        report_title: "Udi Community Biometrics",
-        created_at: "2026-09-15",
-        total_enrollments: 74,
-        status: "APPROVED",
-      },
-
-      // --- AUGUST 2026 (2 Months Ago) ---
-      {
-        id: 790,
-        report_title: "Nkanu West Cooperatives",
-        created_at: "2026-08-11",
-        total_enrollments: 92,
-        status: "APPROVED",
-      },
-
-      // --- MAY 2026 (5 Months Ago) ---
-      {
-        id: 420,
-        report_title: "Garriki Market Pilot Phase",
-        created_at: "2026-05-20",
-        total_enrollments: 230,
-        status: "APPROVED",
-      },
-
-      // --- MARCH 2026 (7 Months Ago) ---
-      {
-        id: 215,
-        report_title: "Ezeagu LGA Rural Assessment",
-        created_at: "2026-03-04",
-        total_enrollments: 115,
-        status: "APPROVED",
-      },
-
-      // --- FEBRUARY 2026 (8 Months Ago) ---
-      {
-        id: 104,
-        report_title: "Nsukka Cluster Baseline Setup",
-        created_at: "2026-02-18",
-        total_enrollments: 198,
-        status: "APPROVED",
-      }, // Add this inside your mock enrollments array to test it:
-      {
-        id: 999,
-        report_title: "Testing Today's Filter",
-        created_at: "2026-10-06", // Matches today's date!
-        total_enrollments: 50,
-        status: "APPROVED",
-      },
-    ],
-  };
-
   const getEnrollmentsInRange = (start, end) =>
-    MOCK_AGENT_REPORTS_DATABASE.enrollments.filter(
+    agentEnrollments.filter(
       (enrollment) =>
         enrollment.created_at >= start && enrollment.created_at <= end,
     );
@@ -168,6 +215,19 @@ function ViewAgentAggregatorPage({ agent }) {
     ),
   );
 
+  useEffect(() => {
+    if (agentEnrollments.length > 0) {
+      const currentMonthEnrollments = getEnrollmentsInRange(
+        firstDayOfMonth,
+        lastDayOfMonth,
+      );
+      const total = currentMonthEnrollments.reduce(
+        (sum, item) => sum + item.total_enrollments,
+        0,
+      );
+      setEnrollmentCount(total);
+    }
+  }, [agentEnrollments]);
   const handleThisMonthClick = () => {
     setSelectedPeriod("this-month");
     setMonthView("this-month");
@@ -245,7 +305,7 @@ function ViewAgentAggregatorPage({ agent }) {
   };
 
   const lastSyncTime = (() => {
-    const lastSync = MOCK_AGENT_REPORTS_DATABASE.last_sync_at;
+    const lastSync = agent.last_sync_at;
     if (!lastSync) return "No enrollments yet";
     const sync = new Date(lastSync).getTime();
     const now = new Date().getTime();
@@ -264,8 +324,8 @@ function ViewAgentAggregatorPage({ agent }) {
       return `${diffInDays} days ago`;
     }
   })();
-  const lastSyncDate = MOCK_AGENT_REPORTS_DATABASE.last_sync_at
-    ? new Date(MOCK_AGENT_REPORTS_DATABASE.last_sync_at).toLocaleDateString()
+  const lastSyncDate = agent.last_sync_at
+    ? new Date(agent.last_sync_at).toLocaleDateString()
     : "No enrollments yet";
 
   const periods = [

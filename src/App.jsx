@@ -6,6 +6,7 @@ import AgentsEnrollmentReportCard from "./components/agents-enrollment-report";
 import AgentsDetailsPage from "./pages/agents-details-page";
 import AgentAggregatorDescriptionCard from "./components/agent-aggregrator-description-card";
 import ViewAgentAggregatorPage from "./pages/agent-aggregrator-view-tab";
+import AgentInsertionForm from "./pages/agent-insertion-form";
 
 const Home = () => <div>Home Page </div>;
 const Agents = () => <div>Agents Management</div>;
@@ -48,7 +49,7 @@ function App() {
             role="aggregators"
           />
           {/* Add your routes here */}
-          {/*<Routes>
+          <Routes>
             <Route
               path="/"
               element={
@@ -65,8 +66,9 @@ function App() {
             <Route path="/tickets" element={<Tickets />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />
-          </Routes>*/}
-          <ViewAgentAggregatorPage agent={demoAgent} />
+            <Route path="/agent-view" element={<ViewAgentAggregatorPage />} />
+            <Route path="/agent-insert" element={<AgentInsertionForm />} />
+          </Routes>
         </div>
       </main>
     </Router>

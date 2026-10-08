@@ -7,7 +7,7 @@ function AgentsEnrollmentReportCard({ name, agent, totalEnrollments }) {
 
   const handleViewClick = () => {
     // Navigate to the agent's detail page using the agent's ID
-    navigate(`/Agent`);
+    navigate(`/agent-view`, { state: agent.id });
   };
   return (
     <div className="agents-enrollment-report">

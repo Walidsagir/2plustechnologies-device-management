@@ -50,6 +50,7 @@ export default function AggregatorDashboard() {
     {
       name: "alice johnson",
       agent: {
+        id: 99,
         name: "alice johnson",
         phone: "555-5678",
         email: "alice.johnson@example.com",

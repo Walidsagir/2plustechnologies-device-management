@@ -1472,6 +1472,211 @@ body::after {
   }
 }
 
+.agent-insertion-form {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  padding: 16px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #e3f4f0, #f0f8f6);
+}
+
+.agent-insertion-form-header {
+  grid-column: 1 / -1;
+}
+
+.agent-insertion-form-header h1 {
+  margin: 0;
+  color: var(--text);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.agent-insertion-form-header p {
+  margin: 5px 0 0;
+  color: var(--text-2);
+  font-size: 13px;
+}
+
+.agent-insertion-form-personal-details,
+.agent-insertion-form-account-details,
+.agent-insertion-form-device-details {
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--teal);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.agent-insertion-form-personal-details-header h2,
+.agent-insertion-form-section-header,
+.agent-insertion-form-device-details-header {
+  margin: 0 0 14px;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.agent-insertion-form-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.agent-insertion-form-field:last-child {
+  margin-bottom: 0;
+}
+
+.agent-insertion-form-field label,
+.agent-insertion-form-device-label {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.agent-insertion-form-field input,
+.agent-insertion-form-field select,
+.agent-insertion-form-device-details-content select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid var(--teal);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+}
+
+.agent-insertion-form-field input::placeholder {
+  color: rgba(16, 32, 30, 0.42);
+}
+
+.agent-insertion-form-field input:focus-visible,
+.agent-insertion-form-field select:focus-visible,
+.agent-insertion-form-device-details-content select:focus-visible {
+  outline: 2px solid var(--teal-text);
+  outline-offset: 2px;
+}
+
+.agent-insertion-form-device-details-header {
+  margin-bottom: 12px;
+}
+
+.agent-insertion-form-device-label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.agent-insertion-form-device-label span {
+  color: var(--text-2);
+  font-weight: 400;
+}
+
+.agent-insertion-form-device-details-content {
+  width: 100%;
+  max-width: 360px;
+}
+
+.agent-insertion-form-device-hint {
+  margin: 6px 0 0;
+  color: var(--text-2);
+  font-size: 12px;
+}
+
+.agent-insertion-form-submit-button {
+  display: flex;
+  grid-column: 1 / -1;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.agent-insertion-form-submit-button button {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--teal);
+  border-radius: 11px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.agent-insertion-form-submit-button button[type="submit"] {
+  background: var(--teal);
+  color: var(--teal-deep);
+}
+
+.agent-insertion-form-submit-button button[type="reset"] {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--teal-text);
+}
+
+.agent-insertion-form-submit-button button:hover {
+  filter: brightness(0.97);
+}
+
+.agent-insertion-form-submit-button button:focus-visible {
+  outline: 2px solid var(--teal-text);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .agent-insertion-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .agent-insertion-form-personal-details,
+  .agent-insertion-form-account-details {
+    height: 100%;
+    padding: 18px;
+  }
+
+  .agent-insertion-form-device-details {
+    grid-column: 1 / -1;
+  }
+
+  .agent-insertion-form-submit-button {
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+  }
+
+  .agent-insertion-form-submit-button button {
+    width: auto;
+    min-width: 124px;
+  }
+}
+
+@media (max-width: 420px) {
+  .agent-insertion-form {
+    gap: 10px;
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  .agent-insertion-form-personal-details,
+  .agent-insertion-form-account-details,
+  .agent-insertion-form-device-details {
+    padding: 12px;
+    border-radius: 13px;
+  }
+
+  .agent-insertion-form-header h1 {
+    font-size: 21px;
+  }
+}
+
 .search-filter-row {
   display: flex;
   align-items: center;

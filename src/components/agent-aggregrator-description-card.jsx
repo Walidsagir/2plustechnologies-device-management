@@ -1,5 +1,7 @@
-function AgentAggregatorDescriptionCard({ agent, aggregator }) {
-  const user = agent ?? aggregator ?? {};
+import { useLocation } from "react-router-dom";
+
+function AgentAggregatorDescriptionCard() {
+  const user = useLocation().state;
   const initials = user.name ? user.name.charAt(0) : null;
   const name = user.name ? user.name : "Unknown";
   const phone = user.phone ? user.phone : "Unknown";
