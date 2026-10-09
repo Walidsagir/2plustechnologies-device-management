@@ -1,7 +1,9 @@
 import AgentAggregatorDescriptionCard from "../components/agent-aggregrator-description-card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AgentsDetailsPage() {
+  const navigate = useNavigate();
   const userData = [
     {
       id: 1,
@@ -44,10 +46,27 @@ function AgentsDetailsPage() {
       devices: 5,
     },
   ];
+
   const [userFilteredData, setFilteredUserData] = useState(userData);
   const [filteredBy, setFilteredBy] = useState("all");
+  const [showAllAgents, setShowAllAgents] = useState(false);
+  const [initialCount, setInitialCount] = useState(() =>
+    window.matchMedia("(min-width: 768px)").matches ? 10 : 3,
+  );
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia("(min-width: 768px)");
+    const updateInitialCount = (event) => {
+      setInitialCount(event.matches ? 8 : 4);
+      setShowAllAgents(false);
+    };
+
+    desktopQuery.addEventListener("change", updateInitialCount);
+    return () => desktopQuery.removeEventListener("change", updateInitialCount);
+  }, []);
 
   const handleFilter = (value) => {
+    setShowAllAgents(false);
     const filtered = userData.filter(
       (user) => user.status.toLowerCase() === value,
     );
@@ -63,6 +82,7 @@ function AgentsDetailsPage() {
     /* Search and filter logic */
   }
   const handleSearch = (value) => {
+    setShowAllAgents(false);
     const filtered = userData.filter((user) => {
       const searchbleFields = [user.name, user.phone, user.status, user.email];
 
@@ -74,11 +94,19 @@ function AgentsDetailsPage() {
     setFilteredUserData(filtered);
   };
 
+  const visibleAgents = showAllAgents
+    ? userFilteredData
+    : userFilteredData.slice(0, initialCount);
+
+  const addAgent = () => {
+    navigate("/agent-insert");
+  };
+
   return (
     <div className="agents-details-page">
       <p className="agents-page-summary">22 agents · 18 working today</p>
       <div className="agents-controls-row">
-        <button type="button" className="agents-add-button">
+        <button type="button" className="agents-add-button" onClick={addAgent}>
           <i className="fas fa-user-plus" aria-hidden="true"></i> Add agent
         </button>
 
@@ -122,11 +150,23 @@ function AgentsDetailsPage() {
             Filtered by {filteredBy ? filteredBy : "all"}
           </span>
         </div>
-        <div className="agents-list">
-          {userFilteredData.map((user, index) => (
-            <AgentAggregatorDescriptionCard key={index} agent={user} />
+        <div className="agents-list" id="agents-list">
+          {visibleAgents.map((user) => (
+            <AgentAggregatorDescriptionCard key={user.id} agent={user} />
           ))}
         </div>
+        {userFilteredData.length > initialCount && (
+          <button
+            type="button"
+            className="see-more-btn agents-see-more-btn"
+            aria-expanded={showAllAgents}
+            aria-controls="agents-list"
+            onClick={() => setShowAllAgents((showAll) => !showAll)}
+          >
+            <i className="fas fa-chevron-down" aria-hidden="true" />
+            {showAllAgents ? "See Less" : "See More"}
+          </button>
+        )}
       </div>
     </div>
   );

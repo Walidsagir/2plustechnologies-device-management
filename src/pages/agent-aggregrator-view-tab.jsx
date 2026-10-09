@@ -15,120 +15,121 @@ function ViewAgentAggregatorPage() {
   const [agentEnrollments, setAgentEnrollments] = useState([]);
 
   const simulatedFetch = async (id) => {
-    const AGENT_REPORTS_DATABASE = {
-      agent_id: 99,
-      name: "Chidi Okafor",
-      state: "Enugu State",
-      zone: "South East",
-      last_sync_at: "2026-10-08T06:29:00.000Z",
-      phone: "0803 000 0001",
-      email: "falid.sagir@gmail.com",
-      accountNumber: "1234567890",
-      accountName: "Falid sagir",
-      bank_name: "Bank of America",
-      created_at: "2023-01-01",
-      status: "Active",
-      device: {
-        id: "NIMC-1",
-        model: "Cumbo",
-        status: "Assigned",
-        imei: "356938035643809",
-        lastSync: "Today, 9:12 AM",
-        assignedSince: "12 Mar 2026",
-      },
-      enrollments: [
-        // --- OCTOBER 2026 (Current Month) ---
-        {
-          id: 999,
-          report_title: "Testing Today's Filter",
-          created_at: "2026-10-08",
-          total_enrollments: 111,
-          status: "APPROVED",
+    if (id === 99) {
+      const AGENT_REPORTS_DATABASE = {
+        name: "Chidi Okafor",
+        state: "Enugu State",
+        zone: "South East",
+        last_sync_at: "2026-10-08T06:29:00.000Z",
+        phone: "0803 000 0001",
+        email: "falid.sagir@gmail.com",
+        accountNumber: "1234567890",
+        accountName: "Falid sagir",
+        bank_name: "Bank of America",
+        created_at: "2023-01-01",
+        status: "Active",
+        device: {
+          id: "NIMC-1",
+          model: "Cumbo",
+          status: "Assigned",
+          imei: "356938035643809",
+          lastSync: "Today, 9:12 AM",
+          assignedSince: "12 Mar 2026",
         },
-        {
-          id: 901,
-          report_title: "Nsukka Urban Verification",
-          created_at: "2026-10-05",
-          total_enrollments: 45,
-          status: "APPROVED",
-        },
-        {
-          id: 902,
-          report_title: "Enugu Campus Student Drive",
-          created_at: "2026-10-05",
-          total_enrollments: 112,
-          status: "APPROVED",
-        },
-        {
-          id: 903,
-          report_title: "Ogbete Main Market Rollout",
-          created_at: "2026-10-02",
-          total_enrollments: 89,
-          status: "APPROVED",
-        },
+        enrollments: [
+          // --- OCTOBER 2026 (Current Month) ---
+          {
+            id: 999,
+            report_title: "Testing Today's Filter",
+            created_at: "2026-10-08",
+            total_enrollments: 111,
+            status: "APPROVED",
+          },
+          {
+            id: 901,
+            report_title: "Nsukka Urban Verification",
+            created_at: "2026-10-05",
+            total_enrollments: 45,
+            status: "APPROVED",
+          },
+          {
+            id: 902,
+            report_title: "Enugu Campus Student Drive",
+            created_at: "2026-10-05",
+            total_enrollments: 112,
+            status: "APPROVED",
+          },
+          {
+            id: 903,
+            report_title: "Ogbete Main Market Rollout",
+            created_at: "2026-10-02",
+            total_enrollments: 89,
+            status: "APPROVED",
+          },
 
-        // --- SEPTEMBER 2026 (1 Month Ago) ---
-        {
-          id: 855,
-          report_title: "Awgu LGA Farmer Onboarding",
-          created_at: "2026-09-28",
-          total_enrollments: 165,
-          status: "APPROVED",
-        },
-        {
-          id: 812,
-          report_title: "Udi Community Biometrics",
-          created_at: "2026-09-15",
-          total_enrollments: 74,
-          status: "APPROVED",
-        },
+          // --- SEPTEMBER 2026 (1 Month Ago) ---
+          {
+            id: 855,
+            report_title: "Awgu LGA Farmer Onboarding",
+            created_at: "2026-09-28",
+            total_enrollments: 165,
+            status: "APPROVED",
+          },
+          {
+            id: 812,
+            report_title: "Udi Community Biometrics",
+            created_at: "2026-09-15",
+            total_enrollments: 74,
+            status: "APPROVED",
+          },
 
-        // --- AUGUST 2026 (2 Months Ago) ---
-        {
-          id: 790,
-          report_title: "Nkanu West Cooperatives",
-          created_at: "2026-08-11",
-          total_enrollments: 92,
-          status: "APPROVED",
-        },
+          // --- AUGUST 2026 (2 Months Ago) ---
+          {
+            id: 790,
+            report_title: "Nkanu West Cooperatives",
+            created_at: "2026-08-11",
+            total_enrollments: 92,
+            status: "APPROVED",
+          },
 
-        // --- MAY 2026 (5 Months Ago) ---
-        {
-          id: 420,
-          report_title: "Garriki Market Pilot Phase",
-          created_at: "2026-05-20",
-          total_enrollments: 230,
-          status: "APPROVED",
-        },
+          // --- MAY 2026 (5 Months Ago) ---
+          {
+            id: 420,
+            report_title: "Garriki Market Pilot Phase",
+            created_at: "2026-05-20",
+            total_enrollments: 230,
+            status: "APPROVED",
+          },
 
-        // --- MARCH 2026 (7 Months Ago) ---
-        {
-          id: 215,
-          report_title: "Ezeagu LGA Rural Assessment",
-          created_at: "2026-03-04",
-          total_enrollments: 115,
-          status: "APPROVED",
-        },
+          // --- MARCH 2026 (7 Months Ago) ---
+          {
+            id: 215,
+            report_title: "Ezeagu LGA Rural Assessment",
+            created_at: "2026-03-04",
+            total_enrollments: 115,
+            status: "APPROVED",
+          },
 
-        // --- FEBRUARY 2026 (8 Months Ago) ---
-        {
-          id: 104,
-          report_title: "Nsukka Cluster Baseline Setup",
-          created_at: "2026-02-18",
-          total_enrollments: 198,
-          status: "APPROVED",
-        }, // Add this inside your mock enrollments array to test it:
-        {
-          id: 999,
-          report_title: "Testing Today's Filter",
-          created_at: "2026-10-06", // Matches today's date!
-          total_enrollments: 50,
-          status: "APPROVED",
-        },
-      ],
-    };
-    setAgent(AGENT_REPORTS_DATABASE);
-    setAgentEnrollments(AGENT_REPORTS_DATABASE.enrollments);
+          // --- FEBRUARY 2026 (8 Months Ago) ---
+          {
+            id: 104,
+            report_title: "Nsukka Cluster Baseline Setup",
+            created_at: "2026-02-18",
+            total_enrollments: 198,
+            status: "APPROVED",
+          }, // Add this inside your mock enrollments array to test it:
+          {
+            id: 999,
+            report_title: "Testing Today's Filter",
+            created_at: "2026-10-06", // Matches today's date!
+            total_enrollments: 50,
+            status: "APPROVED",
+          },
+        ],
+      };
+      setAgent(AGENT_REPORTS_DATABASE);
+      setAgentEnrollments(AGENT_REPORTS_DATABASE.enrollments);
+    }
   };
 
   useEffect(() => {

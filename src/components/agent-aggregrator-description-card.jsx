@@ -1,7 +1,11 @@
 import { useLocation } from "react-router-dom";
 
-function AgentAggregatorDescriptionCard() {
-  const user = useLocation().state;
+function AgentAggregatorDescriptionCard({ agent }) {
+  const user = agent;
+  const simulatedFetch = async (id) => {
+    if (id === 1) {
+    }
+  };
   const initials = user.name ? user.name.charAt(0) : null;
   const name = user.name ? user.name : "Unknown";
   const phone = user.phone ? user.phone : "Unknown";

@@ -1,13 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 function Menu({ id, role, roleTitle, onNavigate, className }) {
+  const { pathname } = useLocation();
   const NAV_ITEMS = [
     {
       name: "Home",
       href: "/",
       role: ["agents", "aggregators", "admins", "technicians"],
     },
-    { name: "Agents", href: "/agents", role: ["admins", "aggregators"] },
+    { name: "Agents", href: "/agents-list", role: ["admins", "aggregators"] },
     {
       name: "Technicians",
       href: "/technicians",
@@ -50,9 +51,16 @@ function Menu({ id, role, roleTitle, onNavigate, className }) {
         <NavLink
           key={item.href}
           to={item.href}
-          className={
-            item.name === "Logout" ? "menu-item menu-item-danger" : "menu-item"
-          }
+          className={({ isActive }) => {
+            const isAgentRoute =
+              item.name === "Agents" && pathname.startsWith("/agent-");
+            const classes = ["menu-item"];
+
+            if (item.name === "Logout") classes.push("menu-item-danger");
+            if (isActive || isAgentRoute) classes.push("active");
+
+            return classes.join(" ");
+          }}
           onClick={onNavigate}
         >
           {item.name}

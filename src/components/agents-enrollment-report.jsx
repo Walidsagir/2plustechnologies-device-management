@@ -1,13 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function AgentsEnrollmentReportCard({ name, agent, totalEnrollments }) {
+function AgentsEnrollmentReportCard({ name, agent, id, totalEnrollments }) {
   const initials = name ? name.charAt(0) : null;
   const navigate = useNavigate();
 
   const handleViewClick = () => {
     // Navigate to the agent's detail page using the agent's ID
-    navigate(`/agent-view`, { state: agent.id });
+
+    navigate(`/agent-view`, { state: id });
   };
   return (
     <div className="agents-enrollment-report">

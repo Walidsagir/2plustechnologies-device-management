@@ -7,6 +7,7 @@ import AgentsDetailsPage from "./pages/agents-details-page";
 import AgentAggregatorDescriptionCard from "./components/agent-aggregrator-description-card";
 import ViewAgentAggregatorPage from "./pages/agent-aggregrator-view-tab";
 import AgentInsertionForm from "./pages/agent-insertion-form";
+import AddDevicePage from "./pages/add-device-page";
 
 const Home = () => <div>Home Page </div>;
 const Agents = () => <div>Agents Management</div>;
@@ -50,7 +51,7 @@ function App() {
           />
           {/* Add your routes here */}
           <Routes>
-            <Route
+            {/* <Route
               path="/"
               element={
                 <>
@@ -59,7 +60,7 @@ function App() {
                 </>
               }
             />
-            <Route path="/agents" element={<AgentsDetailsPage />} />
+            <Route path="/agents-list" element={<AgentsDetailsPage />} />
             <Route path="/technicians" element={<Technicians />} />
             <Route path="/aggregators" element={<Aggregators />} />
             <Route path="/devices" element={<Devices />} />
@@ -68,8 +69,13 @@ function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/agent-view" element={<ViewAgentAggregatorPage />} />
             <Route path="/agent-insert" element={<AgentInsertionForm />} />
+            <Route
+              path="/form-preview"
+              element={<MyForm formData={deviceFormPreviewData} />}
+            />*/}
           </Routes>
         </div>
+        <AddDevicePage />
       </main>
     </Router>
   );

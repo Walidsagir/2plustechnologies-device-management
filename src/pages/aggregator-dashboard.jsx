@@ -7,7 +7,9 @@ export default function AggregatorDashboard() {
   const enrollmenstReport = [
     {
       name: "walid sagir",
+
       agent: {
+        id: 1,
         name: "walid sagir",
         phone: "123-456-7890",
         email: "walid.sagir@example.com",
@@ -21,6 +23,7 @@ export default function AggregatorDashboard() {
     },
     {
       name: "john doe",
+      id: 2,
       agent: {
         name: "john doe",
         phone: "098-765-4321",
@@ -36,6 +39,7 @@ export default function AggregatorDashboard() {
     {
       name: "jane smith",
       agent: {
+        id: 3,
         name: "jane smith",
         phone: "555-1234",
         email: "jane.smith@example.com",
@@ -125,6 +129,7 @@ export default function AggregatorDashboard() {
               name={report.name}
               agent={report.agent}
               totalEnrollments={report.totalEnrollments}
+              id={report.agent.id}
             />
           ))}
           <div
@@ -138,6 +143,7 @@ export default function AggregatorDashboard() {
                   key={report.name}
                   name={report.name}
                   agent={report.agent}
+                  id={report.agent.id}
                   totalEnrollments={report.totalEnrollments}
                 />
               ))}
@@ -159,7 +165,7 @@ export default function AggregatorDashboard() {
         <h2 className="aggregator-target-section-title">Current Target</h2>
         <AggregatorTargetBox
           target={1500}
-          achieved={40}
+          achieved={900}
           dateline="2026-09-31"
         />
       </div>
